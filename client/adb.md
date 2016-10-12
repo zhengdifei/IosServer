@@ -15,6 +15,8 @@
 * Return : Promise
 * Resolves with : serialId
 
+#### client.clear()
+
 
 
 

@@ -16,6 +16,7 @@
 * Resolves with : serialId
 
 #### client.clear()
+清理设备上的应用
 
 
 

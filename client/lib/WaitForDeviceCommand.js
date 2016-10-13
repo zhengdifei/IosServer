@@ -19,17 +19,20 @@
       return WaitForDeviceCommand.__super__.constructor.apply(this, arguments);
     }
 
-    WaitForDeviceCommand.prototype.execute = function() {
-      var action, resolver, spawn, tracker;
+    WaitForDeviceCommand.prototype.execute = function(callback) {
+      var action, isSuccess, resolver, spawn, tracker;
       resolver = Promise.defer();
-      tracker = new Tracker;
       spawn = ChildProcess.spawn;
       action = spawn(this.cmd, this.args);
+      isSuccess = null;
+      tracker = new Tracker;
       action.on('close', function(data) {
         return tracker.findDevice();
       });
       resolver.resolve(tracker);
-      return resolver.promise;
+      return resolver.promise["finally"](function() {
+        return callback(isSuccess, tracker);
+      });
     };
 
     return WaitForDeviceCommand;

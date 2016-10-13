@@ -4,14 +4,16 @@ ChildProcess = require 'child_process'
 Tracker = require './Tracker'
 
 class WaitForDeviceCommand extends Command
-  execute : () ->
+  execute : (callback) ->
     resolver = Promise.defer()
-    tracker = new Tracker
     spawn = ChildProcess.spawn
     action = spawn @cmd,@args
+    isSuccess = null
+    tracker = new Tracker
     action.on 'close',(data) ->
       tracker.findDevice()
     resolver.resolve tracker
-    resolver.promise
+    resolver.promise.finally ->
+     callback isSuccess,tracker
 
 module.exports = WaitForDeviceCommand

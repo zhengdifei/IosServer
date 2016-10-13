@@ -17,27 +17,33 @@
       return ListDevicesCommand.__super__.constructor.apply(this, arguments);
     }
 
-    ListDevicesCommand.prototype.execute = function() {
-      var action, resolver, spawn;
+    ListDevicesCommand.prototype.execute = function(callback) {
+      var action, isSuccess, resolver, serial, spawn;
       resolver = Promise.defer();
       spawn = ChildProcess.spawn;
       action = spawn(this.cmd, this.args);
+      isSuccess = null;
+      serial = '';
       action.stdout.on('data', function(data) {
         var serialInfo;
         serialInfo = new Buffer(data).toString().trim().split('\n');
         if (serialInfo.length > 1) {
-          return resolver.resolve(serialInfo[1].trim().split('\t')[0]);
+          serial = serialInfo[1].trim().split('\t')[0];
+          return resolver.resolve(serial);
         } else {
-          return resolver.resolve('empty');
+          return resolver.resolve('');
         }
       });
       action.stderr.on('data', function(data) {
         return resolver.reject(new Buffer(data).toString());
       });
       action.on('close', function(data) {
+        isSuccess = true;
         return resolver.resolve('close');
       });
-      return resolver.promise["finally"](function() {});
+      return resolver.promise["finally"](function() {
+        return callback(isSuccess, serial);
+      });
     };
 
     return ListDevicesCommand;

@@ -2,26 +2,31 @@ Promise = require 'bluebird'
 Command = require './Command'
 ChildProcess = require 'child_process'
 
-class ListDevicesCommand extends Command
-  execute : (callback) ->
+class ClearCommand extends Command
+  execute : (serial,callback) ->
     resolver = Promise.defer()
     spawn = ChildProcess.spawn
     action = spawn @cmd,@args
     isSuccess = null
-    serial = ''
+    returnValue = true
     action.stdout.on 'data',(data) ->
-      serialInfo = new Buffer(data).toString().trim().split '\n'
-      if serialInfo.length > 1
-        serial = serialInfo[1].trim().split('\t')[0]
-        resolver.resolve serial
+      result = new Buffer(data).toString()
+      if result != null
+        result = result.replace /\n/g,'.'
+      if result.indexOf('Success') > -1
+        returnValue = true
       else
-        resolver.resolve ''
+        isSuccess = new Error(result)
+        returnValue = false
+      resolver.resolve returnValue
     action.stderr.on 'data',(data) ->
-      resolver.reject new Buffer(data).toString()
+      returnValue = new Buffer(data).toString()
+      if returnValue != null
+        returnValue = returnValue.replace /\n/g,'.'
+      isSuccess = new Error(returnValue)
+      resolver.reject isSuccess
     action.on 'close',(data) ->
-      isSuccess = true
-      resolver.resolve 'close'
     resolver.promise.finally ->
-      callback(isSuccess,serial)
+      callback(isSuccess,returnValue)
 
-module.exports = ListDevicesCommand
+module.exports = ClearCommand

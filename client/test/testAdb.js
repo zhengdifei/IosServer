@@ -1,4 +1,4 @@
-const adb = require('../client/adb').createClient({host:'localhost',port:5078})
+const adb = require('../adb').createClient({host:'localhost',port:5078})
 //测试listDevices
 /*adb.listDevices().then(function(data){
     console.log(data)

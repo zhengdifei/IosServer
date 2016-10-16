@@ -32,17 +32,17 @@ VersionCommand = require './lib/VersionCommand'
 WaitBootCompleteCommand = require './lib/WaitBootCompleteCommand'
 WaitForDeviceCommand = require './lib/WaitForDeviceCommand'
 
-class Adb
+class Ioskit
   constructor : (options) ->
     host = options.host
     port = options.port
   #创建adb实例
   @createClient : (options) ->
-    new Adb options
+    new Ioskit options
   #列出设备
   listDevices : (callback) ->
     resolver = Promise.defer()
-    new ListDevicesCommand 'adb','devices'
+    new ListDevicesCommand 'Idevice_id','-l'
       .execute(callback)
       .then (serialId) ->
         resolver.resolve serialId
@@ -380,4 +380,4 @@ class Adb
         resolver.reject err
     resolver.promise
 
-module.exports = Adb
+module.exports = Ioskit

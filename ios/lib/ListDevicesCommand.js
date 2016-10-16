@@ -26,9 +26,9 @@
       returnValue = '';
       action.stdout.on('data', function(data) {
         var serialInfo;
-        serialInfo = new Buffer(data).toString().trim().split('\n');
-        if (serialInfo.length > 1) {
-          returnValue = serialInfo[1].trim().split('\t')[0];
+        serialInfo = new Buffer(data).toString().trim();
+        if (serialInfo !== null) {
+          returnValue = serialInfo;
           return resolver.resolve(returnValue);
         } else {
           isSuccess = new Error('can\'t find a device');

@@ -2,16 +2,17 @@ Promise = require 'bluebird'
 Command = require './Command'
 ChildProcess = require 'child_process'
 
-class GetFeaturesCommand extends Command
+class GetPackageCommand extends Command
   execute : (callback) ->
     resolver = Promise.defer()
     spawn = ChildProcess.spawn
     action = spawn @cmd,@args
     isSuccess = null
-    returnValue = ''
+    returnValue = []
     action.stdout.on 'data',(data) ->
-      featuresStr = new Buffer(data).toString()
-      returnValue = featuresStr.trim().split('\n')
+      packagesStr = new Buffer(data).toString()
+      packagesStr.trim().split('\n').forEach (pkg) ->
+        returnValue.push pkg.slice(8)
       resolver.resolve returnValue
     action.stderr.on 'data',(data) ->
       isSuccess = true
@@ -22,4 +23,4 @@ class GetFeaturesCommand extends Command
     resolver.promise.finally ->
       callback(isSuccess,returnValue)
 
-module.exports = GetFeaturesCommand
+module.exports = GetPackageCommand

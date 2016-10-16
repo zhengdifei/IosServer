@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "OpenLocalCommand.js",
+  "sourceRoot": "",
+  "sources": [
+    "OpenLocalCommand.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,gDAAA;IAAA;;;EAAA,OAAA,GAAU,OAAA,CAAQ,UAAR;;EACV,OAAA,GAAU,OAAA,CAAQ,WAAR;;EACV,YAAA,GAAe,OAAA,CAAQ,eAAR;;EAET;;;;;;;;;KAAyB;;EAE/B,MAAM,CAAC,OAAP,GAAiB;AANjB"
+}

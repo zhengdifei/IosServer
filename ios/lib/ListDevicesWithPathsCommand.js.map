@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "ListDevicesWithPathsCommand.js",
+  "sourceRoot": "",
+  "sources": [
+    "ListDevicesWithPathsCommand.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,2DAAA;IAAA;;;EAAA,OAAA,GAAU,OAAA,CAAQ,UAAR;;EACV,OAAA,GAAU,OAAA,CAAQ,WAAR;;EACV,YAAA,GAAe,OAAA,CAAQ,eAAR;;EAET;;;;;;;;;KAAoC;;EAE1C,MAAM,CAAC,OAAP,GAAiB;AANjB"
+}

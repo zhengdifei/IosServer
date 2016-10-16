@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "StartServiceCommand.js",
+  "sourceRoot": "",
+  "sources": [
+    "StartServiceCommand.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,mDAAA;IAAA;;;EAAA,OAAA,GAAU,OAAA,CAAQ,UAAR;;EACV,OAAA,GAAU,OAAA,CAAQ,WAAR;;EACV,YAAA,GAAe,OAAA,CAAQ,eAAR;;EAET;;;;;;;;;KAA4B;;EAElC,MAAM,CAAC,OAAP,GAAiB;AANjB"
+}

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "WaitBootCompleteCommand.js",
+  "sourceRoot": "",
+  "sources": [
+    "WaitBootCompleteCommand.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,uDAAA;IAAA;;;EAAA,OAAA,GAAU,OAAA,CAAQ,UAAR;;EACV,OAAA,GAAU,OAAA,CAAQ,WAAR;;EACV,YAAA,GAAe,OAAA,CAAQ,eAAR;;EAET;;;;;;;;;KAAgC;;EAEtC,MAAM,CAAC,OAAP,GAAiB;AANjB"
+}

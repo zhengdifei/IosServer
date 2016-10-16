@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "OpenTcpCommand.js",
+  "sourceRoot": "",
+  "sources": [
+    "OpenTcpCommand.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,8CAAA;IAAA;;;EAAA,OAAA,GAAU,OAAA,CAAQ,UAAR;;EACV,OAAA,GAAU,OAAA,CAAQ,WAAR;;EACV,YAAA,GAAe,OAAA,CAAQ,eAAR;;EAET;;;;;;;;;KAAuB;;EAE7B,MAAM,CAAC,OAAP,GAAiB;AANjB"
+}

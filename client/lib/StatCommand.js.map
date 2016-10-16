@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "StatCommand.js",
+  "sourceRoot": "",
+  "sources": [
+    "StatCommand.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,2CAAA;IAAA;;;EAAA,OAAA,GAAU,OAAA,CAAQ,UAAR;;EACV,OAAA,GAAU,OAAA,CAAQ,WAAR;;EACV,YAAA,GAAe,OAAA,CAAQ,eAAR;;EAET;;;;;;;;;KAAoB;;EAE1B,MAAM,CAAC,OAAP,GAAiB;AANjB"
+}

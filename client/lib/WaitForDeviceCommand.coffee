@@ -4,7 +4,7 @@ ChildProcess = require 'child_process'
 Tracker = require './Tracker'
 
 class WaitForDeviceCommand extends Command
-  execute : (callback) ->
+  execute : (serial,callback) ->
     resolver = Promise.defer()
     spawn = ChildProcess.spawn
     action = spawn @cmd,@args

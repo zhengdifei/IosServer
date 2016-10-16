@@ -2,6 +2,6 @@ Promise = require 'bluebird'
 Command = require './Command'
 ChildProcess = require 'child_process'
 
-class UsbCommand extends Command
+class VersionCommand extends Command
 
-module.exports = UsbCommand
+module.exports = VersionCommand

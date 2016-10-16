@@ -2,8 +2,8 @@ Promise = require 'bluebird'
 Command = require './Command'
 ChildProcess = require 'child_process'
 
-class GetPackageCommand extends Command
-  execute : (callback) ->
+class GetPackagesCommand extends Command
+  execute : (serial,callback) ->
     resolver = Promise.defer()
     spawn = ChildProcess.spawn
     action = spawn @cmd,@args
@@ -13,14 +13,17 @@ class GetPackageCommand extends Command
       packagesStr = new Buffer(data).toString()
       packagesStr.trim().split('\n').forEach (pkg) ->
         returnValue.push pkg.slice(8)
-      resolver.resolve returnValue
+      if returnValue.length > 1
+        resolver.resolve returnValue
     action.stderr.on 'data',(data) ->
-      isSuccess = true
-      resolver.reject new Buffer(data).toString()
+      returnValue = []
+      errorInfo = new Buffer(data).toString()
+      if errorInfo != null
+        errorInfo = errorInfo.replace /\n/g,'.'
+      isSuccess = new Error(errorInfo)
+      resolver.reject isSuccess
     action.on 'close',(data) ->
-      isSuccess = true
-      resolver.resolve 'close'
     resolver.promise.finally ->
       callback(isSuccess,returnValue)
 
-module.exports = GetPackageCommand
+module.exports = GetPackagesCommand

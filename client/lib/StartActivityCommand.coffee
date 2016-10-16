@@ -2,6 +2,6 @@ Promise = require 'bluebird'
 Command = require './Command'
 ChildProcess = require 'child_process'
 
-class OpenTcpCommand extends Command
+class StartActivityCommand extends Command
 
-module.exports = OpenTcpCommand
+module.exports = StartActivityCommand

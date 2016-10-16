@@ -11,19 +11,18 @@ class ClearCommand extends Command
     returnValue = true
     action.stdout.on 'data',(data) ->
       result = new Buffer(data).toString()
-      if result != null
-        result = result.replace /\n/g,'.'
       if result.indexOf('Success') > -1
         returnValue = true
       else
-        isSuccess = new Error(result)
+        isSuccess = new Error('Failed')
         returnValue = false
       resolver.resolve returnValue
     action.stderr.on 'data',(data) ->
-      returnValue = new Buffer(data).toString()
-      if returnValue != null
-        returnValue = returnValue.replace /\n/g,'.'
-      isSuccess = new Error(returnValue)
+      returnValue = false
+      errorInfo = new Buffer(data).toString()
+      if errorInfo != null
+        errorInfo = errorInfo.replace /\n/g,'.'
+      isSuccess = new Error(errorInfo)
       resolver.reject isSuccess
     action.on 'close',(data) ->
     resolver.promise.finally ->

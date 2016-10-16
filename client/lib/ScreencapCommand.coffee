@@ -2,17 +2,15 @@ Promise = require 'bluebird'
 Command = require './Command'
 ChildProcess = require 'child_process'
 
-class ClearCommand extends Command
+class ScreencapCommand extends Command
   execute : (callback) ->
     resolver = Promise.defer()
     spawn = ChildProcess.spawn
     action = spawn @cmd,@args
     isSuccess = null
-    returnValue = true
+    returnValue = ''
     action.stdout.on 'data',(data) ->
       result = new Buffer(data).toString()
-      if result != 'Success'
-        returnValue = false
       resolver.resolve returnValue
     action.stderr.on 'data',(data) ->
       isSuccess = true
@@ -23,4 +21,4 @@ class ClearCommand extends Command
     resolver.promise.finally ->
       callback(isSuccess,returnValue)
 
-module.exports = ClearCommand
+module.exports = ScreencapCommand

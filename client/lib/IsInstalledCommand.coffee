@@ -2,24 +2,30 @@ Promise = require 'bluebird'
 Command = require './Command'
 ChildProcess = require 'child_process'
 
-class InstallCommand extends Command
-  execute : (callback) ->
+class IsInstalledCommand extends Command
+  execute : (serial,callback) ->
     resolver = Promise.defer()
     spawn = ChildProcess.spawn
     action = spawn @cmd,@args
     isSuccess = null
-    returnValue = true
+    returnValue = ''
     action.stdout.on 'data',(data) ->
-      if new Buffer(data).toString() != 'Success'
-        returnValue = false
-      resolver.resolve returnValue
+      returnValue = new Buffer(data).toString()
+      returnValue = returnValue.replace /\n/g,''
+      returnValue = returnValue.replace /\r/g,''
+      if returnValue.indexOf('apk') > -1
+        resolver.resolve returnValue
+      else if  returnValue.indexOf('can\'t find') > -1
+        returnValue = "unknown"
+        isSuccess = new Error(returnValue)
+        resolver.reject isSuccess
     action.stderr.on 'data',(data) ->
-      isSuccess = true
-      resolver.reject new Buffer(data).toString()
-    action.on 'close',(data) ->
-      isSuccess = true
-      resolver.resolve 'close'
+      errorInfo = new Buffer(data).toString()
+      if errorInfo != null
+        errorInfo = errorInfo.replace /\n/g,'.'
+      isSuccess = new Error(errorInfo)
+      resolver.reject isSuccess
     resolver.promise.finally ->
       callback(isSuccess,returnValue)
 
-module.exports = InstallCommand
+module.exports = IsInstalledCommand

@@ -18,23 +18,25 @@
     }
 
     ListDevicesCommand.prototype.execute = function(callback) {
-      var action, isSuccess, resolver, serial, spawn;
+      var action, isSuccess, resolver, returnValue, spawn;
       resolver = Promise.defer();
       spawn = ChildProcess.spawn;
       action = spawn(this.cmd, this.args);
       isSuccess = null;
-      serial = '';
+      returnValue = '';
       action.stdout.on('data', function(data) {
         var serialInfo;
         serialInfo = new Buffer(data).toString().trim().split('\n');
         if (serialInfo.length > 1) {
-          serial = serialInfo[1].trim().split('\t')[0];
-          return resolver.resolve(serial);
+          returnValue = serialInfo[1].trim().split('\t')[0];
+          return resolver.resolve(returnValue);
         } else {
-          return resolver.resolve('');
+          isSuccess = new Error('can\'t find a device');
+          return resolver.reject(isSuccess);
         }
       });
       action.stderr.on('data', function(data) {
+        isSuccess = true;
         return resolver.reject(new Buffer(data).toString());
       });
       action.on('close', function(data) {
@@ -42,7 +44,7 @@
         return resolver.resolve('close');
       });
       return resolver.promise["finally"](function() {
-        return callback(isSuccess, serial);
+        return callback(isSuccess, returnValue);
       });
     };
 

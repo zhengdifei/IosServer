@@ -8,20 +8,22 @@ class ListDevicesCommand extends Command
     spawn = ChildProcess.spawn
     action = spawn @cmd,@args
     isSuccess = null
-    serial = ''
+    returnValue = ''
     action.stdout.on 'data',(data) ->
       serialInfo = new Buffer(data).toString().trim().split '\n'
       if serialInfo.length > 1
-        serial = serialInfo[1].trim().split('\t')[0]
-        resolver.resolve serial
+        returnValue = serialInfo[1].trim().split('\t')[0]
+        resolver.resolve returnValue
       else
-        resolver.resolve ''
+        isSuccess = new Error('can\'t find a device')
+        resolver.reject isSuccess
     action.stderr.on 'data',(data) ->
+      isSuccess = true
       resolver.reject new Buffer(data).toString()
     action.on 'close',(data) ->
       isSuccess = true
       resolver.resolve 'close'
     resolver.promise.finally ->
-      callback(isSuccess,serial)
+      callback(isSuccess,returnValue)
 
 module.exports = ListDevicesCommand

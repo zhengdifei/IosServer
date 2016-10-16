@@ -2,6 +2,6 @@ Promise = require 'bluebird'
 Command = require './Command'
 ChildProcess = require 'child_process'
 
-class StartActivityCommand extends Command
+class StatCommand extends Command
 
-module.exports = StartActivityCommand
+module.exports = StatCommand

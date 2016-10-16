@@ -4,20 +4,16 @@ Chai = require 'chai'
 adb = require '../adb'
 client = adb.createClient {host:'localhost',port:5078}
 
-describe 'GetPropertiesCommand', ->
-  it "should send 'adb shell getprop' <right>",() ->
-    client.getProperties '123456',(err,data) ->
+describe 'GetSerialNoCommand', ->
+  it "should send 'adb get-serialno' <right>",() ->
+    client.getSerialNo '123456',(err,data) ->
       if err == null
-        expect(data).to.be.instanceof Object
-        expect(data).to.have.property 'af.rf_info'
-        expect(data).to.have.property 'af.rf_info','273'
+        expect(data).to.equal 'QLXBBCA671245055'
       else
         expect(err).to.be.an.instanceof Error
-        expect(err.message).to.equal 'error: device not found.'
+        expect(err.message).to.equal 'error: unknown'
     .then (data) ->
-      expect(data).to.be.instanceof Object
-      expect(data).to.have.property 'af.rf_info'
-      expect(data).to.have.property 'af.rf_info','273'
+      expect(data).to.equal 'QLXBBCA671245055'
     .catch (err) ->
       expect(err).to.be.an.instanceof Error
-      expect(err.message).to.equal 'error: device not found.'
+      expect(err.message).to.equal 'error: unknown'

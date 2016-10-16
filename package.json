@@ -6,8 +6,10 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "assert": "^1.4.1",
     "bluebird": "^3.4.6",
     "body-parser": "~1.15.1",
+    "chai": "^3.5.0",
     "cookie-parser": "~1.4.3",
     "cross-spawn": "^4.0.2",
     "debug": "~2.2.0",

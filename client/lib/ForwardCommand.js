@@ -28,12 +28,18 @@
         return resolver.resolve(returnValue);
       });
       action.stderr.on('data', function(data) {
-        returnValue = new Buffer(data).toString();
-        if (returnValue !== null) {
-          returnValue = returnValue.replace(/\n/g, '.');
+        var errorInfo;
+        returnValue = false;
+        errorInfo = new Buffer(data).toString();
+        if (errorInfo !== null) {
+          errorInfo = errorInfo.replace(/\n/g, '.');
+          isSuccess = new Error(errorInfo);
         }
-        isSuccess = new Error(returnValue);
-        return resolver.reject(isSuccess);
+        if (errorInfo.indexOf('device') > -1) {
+          return resolver.reject(isSuccess);
+        } else {
+          return resolver.resolve(returnValue);
+        }
       });
       action.on('close', function(data) {
         return resolver.resolve(returnValue);

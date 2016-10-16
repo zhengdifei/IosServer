@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "TcpipCommand.js",
+  "sourceRoot": "",
+  "sources": [
+    "TcpipCommand.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,4CAAA;IAAA;;;EAAA,OAAA,GAAU,OAAA,CAAQ,UAAR;;EACV,OAAA,GAAU,OAAA,CAAQ,WAAR;;EACV,YAAA,GAAe,OAAA,CAAQ,eAAR;;EAET;;;;;;;;;KAAqB;;EAE3B,MAAM,CAAC,OAAP,GAAiB;AANjB"
+}

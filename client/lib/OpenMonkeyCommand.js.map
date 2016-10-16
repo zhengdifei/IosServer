@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "OpenMonkeyCommand.js",
+  "sourceRoot": "",
+  "sources": [
+    "OpenMonkeyCommand.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,iDAAA;IAAA;;;EAAA,OAAA,GAAU,OAAA,CAAQ,UAAR;;EACV,OAAA,GAAU,OAAA,CAAQ,WAAR;;EACV,YAAA,GAAe,OAAA,CAAQ,eAAR;;EAET;;;;;;;;;KAA0B;;EAEhC,MAAM,CAAC,OAAP,GAAiB;AANjB"
+}

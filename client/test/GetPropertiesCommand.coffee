@@ -4,19 +4,20 @@ Chai = require 'chai'
 adb = require '../adb'
 client = adb.createClient {host:'localhost',port:5078}
 
-describe 'GetFeaturesCommand', ->
-  it "should send 'adb shell pm list feature' <right>",() ->
-    client.getPackages '123456',(err,data) ->
+describe 'GetPropertiesCommand', ->
+  it "should send 'adb shell getprop' <right>",() ->
+    client.getProperties '123456',(err,data) ->
       if err == null
-        expect(data).to.be.instanceof Array
-        #expect(data.length).to.equal 10
-        expect(data).to.have.length.above 10
+        expect(data).to.be.instanceof Object
+        expect(data).to.have.property 'af.rf_info'
+        expect(data).to.have.property 'af.rf_info','273'
       else
         expect(err).to.be.an.instanceof Error
         expect(err.message).to.equal 'error: device not found.'
     .then (data) ->
-      expect(data).to.be.instanceof Array
-      expect(data).to.have.length.above 10
+      expect(data).to.be.instanceof Object
+      expect(data).to.have.property 'af.rf_info'
+      expect(data).to.have.property 'af.rf_info','273'
     .catch (err) ->
       expect(err).to.be.an.instanceof Error
       expect(err.message).to.equal 'error: device not found.'

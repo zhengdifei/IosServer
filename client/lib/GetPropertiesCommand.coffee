@@ -17,10 +17,13 @@ class GetPropertiesCommand extends Command
           properties[propertyObj[0].slice(1,-1)] = propertyObj[1].trim().slice(1,-1)
       resolver.resolve properties
     action.stderr.on 'data',(data) ->
-      isSuccess = true
-      resolver.reject new Buffer(data).toString()
+      returnValue = {}
+      errorInfo = new Buffer(data).toString()
+      if errorInfo != null
+        errorInfo = errorInfo.replace /\n/g,'.'
+      isSuccess = new Error(errorInfo)
+      resolver.reject isSuccess
     action.on 'close',(data) ->
-      resolver.resolve 'close'
     resolver.promise.finally ->
       callback(isSuccess,properties)
 

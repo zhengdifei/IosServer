@@ -19,7 +19,7 @@
       return WaitForDeviceCommand.__super__.constructor.apply(this, arguments);
     }
 
-    WaitForDeviceCommand.prototype.execute = function(callback) {
+    WaitForDeviceCommand.prototype.execute = function(serial, callback) {
       var action, isSuccess, resolver, spawn, tracker;
       resolver = Promise.defer();
       spawn = ChildProcess.spawn;

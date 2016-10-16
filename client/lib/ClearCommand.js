@@ -27,23 +27,22 @@
       action.stdout.on('data', function(data) {
         var result;
         result = new Buffer(data).toString();
-        if (result !== null) {
-          result = result.replace(/\n/g, '.');
-        }
         if (result.indexOf('Success') > -1) {
           returnValue = true;
         } else {
-          isSuccess = new Error(result);
+          isSuccess = new Error('Failed');
           returnValue = false;
         }
         return resolver.resolve(returnValue);
       });
       action.stderr.on('data', function(data) {
-        returnValue = new Buffer(data).toString();
-        if (returnValue !== null) {
-          returnValue = returnValue.replace(/\n/g, '.');
+        var errorInfo;
+        returnValue = false;
+        errorInfo = new Buffer(data).toString();
+        if (errorInfo !== null) {
+          errorInfo = errorInfo.replace(/\n/g, '.');
         }
-        isSuccess = new Error(returnValue);
+        isSuccess = new Error(errorInfo);
         return resolver.reject(isSuccess);
       });
       action.on('close', function(data) {});

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "StartActivityCommand.js",
+  "sourceRoot": "",
+  "sources": [
+    "StartActivityCommand.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,oDAAA;IAAA;;;EAAA,OAAA,GAAU,OAAA,CAAQ,UAAR;;EACV,OAAA,GAAU,OAAA,CAAQ,WAAR;;EACV,YAAA,GAAe,OAAA,CAAQ,eAAR;;EAET;;;;;;;;;KAA6B;;EAEnC,MAAM,CAAC,OAAP,GAAiB;AANjB"
+}

@@ -5,10 +5,11 @@ adb = require '../adb'
 client = adb.createClient {host:'localhost',port:5078}
 
 describe 'GetFeaturesCommand', ->
-  it "should send 'adb shell pm list feature' <right>",() ->
-    client.getFeatures '123456',(err,data) ->
+  it "should send 'adb shell pm list packages' <right>",() ->
+    client.getPackages '123456',(err,data) ->
       if err == null
         expect(data).to.be.instanceof Array
+        #expect(data.length).to.equal 10
         expect(data).to.have.length.above 10
       else
         expect(err).to.be.an.instanceof Error

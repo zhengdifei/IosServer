@@ -4,9 +4,9 @@ Chai = require 'chai'
 adb = require '../adb'
 client = adb.createClient {host:'localhost',port:5078}
 
-describe 'IsInstallCommand', ->
-  it "should send 'adb isInstall file' <right>",() ->
-    client.isInstall '123456','com.achievo.vipshop',(err,data) ->
+describe 'IsInstalledCommand', ->
+  it "should send 'adb isInstalled file' <right>",() ->
+    client.isInstalled '123456','com.achievo.vipshop',(err,data) ->
       if err == null
         expect(data).to.equal '/system/vendor/operator/app/vipshop_20160420/vipshop_20160420.apk'
       else

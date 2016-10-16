@@ -13,29 +13,36 @@
     port: 5078
   });
 
-  describe('ForwarCommand', function() {
+  describe('ForwardCommand', function() {
     it("should send 'adb forward local remote' <right>", function() {
       return client.forward('123456', 'tcp:1717', 'localabstract:minicap', function(err, data) {
         if (err === null) {
-          expect(err).to.be.a('null');
           return expect(data).to["true"];
+        } else {
+          expect(err).to.be.an["instanceof"](Error);
+          return expect(err.message).to.equal('error: device not found.');
         }
       }).then(function(data) {
         return expect(data).to["true"];
       })["catch"](function(err) {
-        return expect(err).to.be.an["instanceof"](Error);
+        expect(err).to.be.an["instanceof"](Error);
+        return expect(err.message).to.equal('error: device not found.');
       });
     });
     return it("should send 'adb forward local remote' <wrong>", function() {
       return client.forward('123456', 'tc:1717', 'localabstract:minicap1', function(err, data) {
-        if (err === null) {
-          expect(err).to.be.an["instanceof"](Error);
-          return expect(data).to["false"];
+        expect(data).to["false"];
+        expect(err).to.be.an["instanceof"](Error);
+        if (err.message.indexOf('socket' > -1)) {
+          return expect(err.message).to.equal('error: cannot bind to socket.');
+        } else {
+          return expect(err.message).to.equal('error: device not found.');
         }
       }).then(function(data) {
         return expect(data).to["false"];
       })["catch"](function(err) {
-        return expect(err).to.be.an["instanceof"](Error);
+        expect(err).to.be.an["instanceof"](Error);
+        return expect(err.message).to.equal('error: device not found.');
       });
     });
   });

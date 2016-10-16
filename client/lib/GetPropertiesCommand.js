@@ -37,12 +37,16 @@
         return resolver.resolve(properties);
       });
       action.stderr.on('data', function(data) {
-        isSuccess = true;
-        return resolver.reject(new Buffer(data).toString());
+        var errorInfo, returnValue;
+        returnValue = {};
+        errorInfo = new Buffer(data).toString();
+        if (errorInfo !== null) {
+          errorInfo = errorInfo.replace(/\n/g, '.');
+        }
+        isSuccess = new Error(errorInfo);
+        return resolver.reject(isSuccess);
       });
-      action.on('close', function(data) {
-        return resolver.resolve('close');
-      });
+      action.on('close', function(data) {});
       return resolver.promise["finally"](function() {
         return callback(isSuccess, properties);
       });

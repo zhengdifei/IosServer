@@ -2,22 +2,29 @@ Promise = require 'bluebird'
 Command = require './Command'
 ChildProcess = require 'child_process'
 
-class ForwardCommand extends Command
-  execute : (callback) ->
+class GetDevicePathCommand extends Command
+  execute : (serial,callback) ->
     resolver = Promise.defer()
     spawn = ChildProcess.spawn
     action = spawn @cmd,@args
     isSuccess = null
-    returnValue = true
+    returnValue = ''
     action.stdout.on 'data',(data) ->
-      resolver.resolve returnValue
+      returnValue = new Buffer(data).toString()
+      returnValue = returnValue.replace /\n/g,''
+      if returnValue.indexOf('unknown') > -1
+        returnValue = "unknown"
+        isSuccess = new Error(returnValue)
+        resolver.reject isSuccess
+      else
+        resolver.resolve returnValue
     action.stderr.on 'data',(data) ->
-      isSuccess = true
-      resolver.reject new Buffer(data).toString()
-    action.on 'close',(data) ->
-      isSuccess = true
-      resolver.resolve 'close'
+      errorInfo = new Buffer(data).toString()
+      if errorInfo != null
+        errorInfo = errorInfo.replace /\n/g,'.'
+      isSuccess = new Error(errorInfo)
+      resolver.reject isSuccess
     resolver.promise.finally ->
       callback(isSuccess,returnValue)
 
-module.exports = ForwardCommand
+module.exports = GetDevicePathCommand

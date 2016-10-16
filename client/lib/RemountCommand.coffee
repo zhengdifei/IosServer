@@ -2,7 +2,7 @@ Promise = require 'bluebird'
 Command = require './Command'
 ChildProcess = require 'child_process'
 
-class RebootCommand extends Command
+class RemountCommand extends Command
   execute : (callback) ->
     resolver = Promise.defer()
     spawn = ChildProcess.spawn
@@ -20,4 +20,4 @@ class RebootCommand extends Command
     resolver.promise.finally ->
       callback(isSuccess,returnValue)
 
-module.exports = RebootCommand
+module.exports = RemountCommand

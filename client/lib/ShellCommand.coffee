@@ -2,7 +2,7 @@ Promise = require 'bluebird'
 Command = require './Command'
 ChildProcess = require 'child_process'
 
-class ScreencapCommand extends Command
+class ShellCommand extends Command
   execute : (callback) ->
     resolver = Promise.defer()
     spawn = ChildProcess.spawn
@@ -21,4 +21,4 @@ class ScreencapCommand extends Command
     resolver.promise.finally ->
       callback(isSuccess,returnValue)
 
-module.exports = ScreencapCommand
+module.exports = ShellCommand

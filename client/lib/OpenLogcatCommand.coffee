@@ -2,6 +2,6 @@ Promise = require 'bluebird'
 Command = require './Command'
 ChildProcess = require 'child_process'
 
-class OpenLocalCommand extends Command
+class OpenLogcatCommand extends Command
 
-module.exports = OpenLocalCommand
+module.exports = OpenLogcatCommand

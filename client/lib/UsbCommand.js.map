@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "UsbCommand.js",
+  "sourceRoot": "",
+  "sources": [
+    "UsbCommand.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,0CAAA;IAAA;;;EAAA,OAAA,GAAU,OAAA,CAAQ,UAAR;;EACV,OAAA,GAAU,OAAA,CAAQ,WAAR;;EACV,YAAA,GAAe,OAAA,CAAQ,eAAR;;EAET;;;;;;;;;KAAmB;;EAEzB,MAAM,CAAC,OAAP,GAAiB;AANjB"
+}

@@ -11,17 +11,19 @@ class InstallCommand extends Command
     returnValue = true
     action.stdout.on 'data',(data) ->
       resultInfo = new Buffer(data).toString()
-      resultInfo = resultInfo.replace /\n/g,''
-      if resultInfo.indexOf('success') > -1
+      if resultInfo.indexOf('Copying') > -1
         resolver.resolve returnValue
       else
-        returnValue = false
-        isSuccess = new Error('error: install failed')
+        returnValue = "err:install fail"
+        isSuccess = new Error(returnValue)
         resolver.reject isSuccess
     action.stderr.on 'data',(data) ->
+      returnValue = false
       errorInfo = new Buffer(data).toString()
       if errorInfo != null
         errorInfo = errorInfo.replace /\n/g,'.'
+        if errorInfo.indexOf('No such file or directory') > -1
+          errorInfo = 'No such file or directory'
       isSuccess = new Error(errorInfo)
       resolver.reject isSuccess
     action.on 'close',(data) ->

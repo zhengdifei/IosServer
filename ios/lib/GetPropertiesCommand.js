@@ -31,7 +31,7 @@
           var propertyObj;
           propertyObj = property.trim().split(':');
           if (propertyObj[1]) {
-            return properties[propertyObj[0].slice(1, -1)] = propertyObj[1].trim().slice(1, -1);
+            return properties[propertyObj[0]] = propertyObj[1].trim();
           }
         });
         return resolver.resolve(properties);

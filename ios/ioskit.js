@@ -104,7 +104,7 @@
     Ioskit.prototype.getProperties = function(serial, callback) {
       var resolver;
       resolver = Promise.defer();
-      new GetPropertiesCommand('adb', 'shell', 'getprop').execute(serial, callback).then(function(properties) {
+      new GetPropertiesCommand('ideviceinfo', '-u', serial).execute(serial, callback).then(function(properties) {
         return resolver.resolve(properties);
       })["catch"](function(err) {
         return resolver.reject(err);
@@ -206,7 +206,7 @@
     Ioskit.prototype.install = function(serial, apk, callback) {
       var resolver;
       resolver = Promise.defer();
-      new InstallCommand('adb', 'install', apk).execute(serial, callback).then(function(isSuccess) {
+      new InstallCommand('ideviceinstaller', '-i', apk).execute(serial, callback).then(function(isSuccess) {
         return resolver.resolve(isSuccess);
       })["catch"](function(err) {
         return resolver.reject(err);

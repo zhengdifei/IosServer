@@ -14,7 +14,7 @@ class GetPropertiesCommand extends Command
       propertiesStr.forEach (property) ->
         propertyObj = property.trim().split ':'
         if propertyObj[1]
-          properties[propertyObj[0].slice(1,-1)] = propertyObj[1].trim().slice(1,-1)
+          properties[propertyObj[0]] = propertyObj[1].trim()
       resolver.resolve properties
     action.stderr.on 'data',(data) ->
       returnValue = {}

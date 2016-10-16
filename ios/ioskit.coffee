@@ -62,7 +62,7 @@ class Ioskit
   #获取设备信息
   getProperties : (serial,callback) ->
     resolver = Promise.defer()
-    new GetPropertiesCommand 'adb','shell','getprop'
+    new GetPropertiesCommand 'ideviceinfo','-u',serial
       .execute(serial,callback)
       .then (properties) ->
         resolver.resolve properties
@@ -152,7 +152,7 @@ class Ioskit
   #安装apk
   install : (serial,apk,callback) ->
     resolver = Promise.defer()
-    new InstallCommand 'adb','install',apk
+    new InstallCommand 'ideviceinstaller','-i',apk
       .execute(serial,callback)
       .then (isSuccess) ->
         resolver.resolve isSuccess

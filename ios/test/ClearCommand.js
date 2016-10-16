@@ -6,7 +6,7 @@
 
   expect = Chai.expect;
 
-  adb = require('../adb');
+  adb = require('../ioskit');
 
   client = adb.createClient({
     host: 'localhost',

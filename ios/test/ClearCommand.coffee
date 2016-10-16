@@ -1,7 +1,7 @@
 Chai = require 'chai'
 {expect} = Chai
 
-adb = require '../adb'
+adb = require '../ioskit'
 client = adb.createClient {host:'localhost',port:5078}
 
 describe 'ClearCommand', ->
